@@ -14,4 +14,22 @@ public interface CategoryMapper {
      * @return
      */
     Page<Category> page(CategoryPageQueryDTO categoryPageQueryDTO);
+
+    /**
+     * 修改分类信息
+     * @param category
+     */
+    void update(Category category);
+
+    /**
+     * 新增分类信息
+     * @param category
+     */
+    void insert(Category category);
+
+    /**
+     * 根据ID删除
+     * @param id
+     */
+    void deleteById(Long id);
 }
