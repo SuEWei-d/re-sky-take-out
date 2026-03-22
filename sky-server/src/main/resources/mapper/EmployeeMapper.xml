@@ -8,6 +8,43 @@
         insert into employee (name, username, password, phone, sex, id_number, create_time, update_time, create_user, update_user, status)
         VALUES (#{name}, #{username}, #{password}, #{phone}, #{sex}, #{idNumber}, #{createTime}, #{updateTime}, #{createUser}, #{updateUser}, #{status} )
     </insert>
+
+    <!-- 对员工信息进行修改 -->
+    <update id="update">
+        update employee
+        <set>
+            <if test="name != null and name != ' '">
+                name = #{name}
+            </if>
+            <if test="status != null and status != ' '">
+                status = #{status}
+            </if>
+            <if test="username != null and username != ' '">
+                username = #{username}
+            </if>
+            <if test="password != null and password != ' '">
+                password = #{password}
+            </if>
+            <if test="phone != null and phone != ' '">
+                phone = #{phone}
+            </if>
+            <if test="sex != null and sex != ' '">
+                sex = #{sex}
+            </if>
+            <if test="idNumber != null and idNumber != ' '">
+                id_number = #{idNumber}
+            </if>
+            <if test="updateTime != null and updateTime != ' '">
+                update_time = #{updateTime}
+            </if>
+            <if test="updateUser != null and updateUser != ' '">
+                update_user = #{updateUser}
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <!-- 分页查询员工信息 -->
     <select id="page" resultType="com.sky.entity.Employee">
         select * from employee
         <where>
@@ -16,5 +53,11 @@
             </if>
         </where>
         order by create_time desc
+    </select>
+
+    <!-- 根据员工Id查询员工 -->
+    <select id="getById" resultType="com.sky.entity.Employee">
+        select * from employee
+        where id = #{id}
     </select>
 </mapper>

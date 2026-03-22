@@ -128,4 +128,17 @@ public class EmployeeServiceImpl implements EmployeeService {
         return new PageResult(total, result);
     }
 
+    @Override
+    public void status(Long id, int status) {
+        // 1、设置Id用户的状态
+        Employee employee = Employee.builder()
+                .id(id)
+                .status(status)
+                .build();
+
+        // 2、对数据库进行修改
+        employeeMapper.update(employee);
+
+    }
+
 }

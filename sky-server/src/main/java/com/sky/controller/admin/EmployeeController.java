@@ -101,4 +101,17 @@ public class EmployeeController {
         return Result.success(pageResult);
     }
 
+    /**
+     * 设置员工状态
+     * @param id
+     * @param status
+     * @return
+     */
+    @PostMapping("/status/{status}")
+    @ApiOperation("设置员工状态")
+    public Result status(Long id, @PathVariable("status") int status){
+        employeeService.status(id,status);
+        return Result.success();
+    }
+
 }
