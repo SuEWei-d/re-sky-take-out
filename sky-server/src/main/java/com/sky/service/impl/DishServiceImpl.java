@@ -155,4 +155,14 @@ public class DishServiceImpl implements DishService {
         List<DishFlavor> flavors = dishDTO.getFlavors();
         dishFlavorMapper.insertBatch(flavors);
     }
+
+    @Override
+    public void startAndStop(Integer status, Long id) {
+        Dish dish = Dish.builder()
+                .id(id)
+                .status(status)
+                .build();
+
+        dishMapper.update(dish);
+    }
 }

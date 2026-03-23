@@ -40,4 +40,11 @@ public interface DishService {
      * @param dishDTO
      */
     void update(DishDTO dishDTO);
+
+    /**
+     * 起售停售
+     * @param status
+     * @param id
+     */
+    void startAndStop(Integer status, Long id);
 }
