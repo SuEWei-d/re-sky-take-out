@@ -9,4 +9,20 @@
             (#{flavor.dishId}, #{flavor.name}, #{flavor.value})
         </foreach>
     </insert>
+    <delete id="deleteBatch">
+        delete from dish_flavor
+        <where>
+            <foreach collection="serializableList" item="s" separator=",">
+                dish_id = #{s.dishId}
+            </foreach>
+        </where>
+    </delete>
+    <delete id="deleteByDishId" parameterType="java.lang.Long">
+        delete from dish_flavor where dish_id = #{dishId}
+    </delete>
+    <select id="getByDishId" resultType="com.sky.entity.DishFlavor" parameterType="java.lang.Long">
+        select * from dish_flavor where dish_id = #{dishId}
+    </select>
+
+
 </mapper>
