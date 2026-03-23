@@ -43,4 +43,9 @@
         </where>
         order by sort
     </select>
+
+    <!-- 根据类型查询分类列表 -->
+    <select id="getByType" resultType="com.sky.entity.Category" parameterType="java.lang.Integer">
+        select * from category where type = #{type}
+    </select>
 </mapper>

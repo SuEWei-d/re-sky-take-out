@@ -7,6 +7,8 @@ import com.sky.entity.Category;
 import com.sky.enumeration.OperationType;
 import org.apache.ibatis.annotations.Mapper;
 
+import java.util.List;
+
 @Mapper
 public interface CategoryMapper {
 
@@ -35,4 +37,11 @@ public interface CategoryMapper {
      * @param id
      */
     void deleteById(Long id);
+
+    /**
+     * 根据类型查询分类信息
+     * @param type
+     * @return
+     */
+    List<Category> getByType(Integer type);
 }
