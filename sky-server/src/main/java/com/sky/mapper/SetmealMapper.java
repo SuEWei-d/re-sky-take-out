@@ -46,4 +46,11 @@ public interface SetmealMapper {
      */
     @AutoFill(value = OperationType.UPDATE)
     void update(Setmeal setmeal);
+
+    /**
+     * 根据分类Id查找套餐
+     * @param categoryId
+     * @return
+     */
+    List<Setmeal> getByCategoryId(Long categoryId);
 }

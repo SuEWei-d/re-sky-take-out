@@ -5,13 +5,16 @@ import com.github.pagehelper.PageHelper;
 import com.sky.constant.StatusConstant;
 import com.sky.dto.SetmealDTO;
 import com.sky.dto.SetmealPageQueryDTO;
+import com.sky.entity.Dish;
 import com.sky.entity.Setmeal;
 import com.sky.entity.SetmealDish;
 import com.sky.exception.DeletionNotAllowedException;
+import com.sky.mapper.DishMapper;
 import com.sky.mapper.SetmealDishMapper;
 import com.sky.mapper.SetmealMapper;
 import com.sky.result.PageResult;
 import com.sky.service.SetmealService;
+import com.sky.vo.DishItemVO;
 import com.sky.vo.SetmealVO;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +22,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -31,6 +35,9 @@ public class SetmealServiceImpl implements SetmealService {
 
     @Autowired
     private SetmealDishMapper setmealDishMapper;
+
+    @Autowired
+    private DishMapper dishMapper;
 
     /**
      * 新增套餐
@@ -154,5 +161,40 @@ public class SetmealServiceImpl implements SetmealService {
                 .build();
 
         setmealMapper.update(setmeal);
+    }
+
+    /**
+     * 根据分类Id查找套餐
+     * @param categoryId
+     * @return
+     */
+    @Override
+    public List<Setmeal> getByCategoryId(Long categoryId) {
+       List<Setmeal> setmealList = setmealMapper.getByCategoryId(categoryId);
+       return setmealList;
+
+    }
+
+    /**
+     * 根据套餐id查询包含的菜品
+     * @param setmealId
+     * @return
+     */
+    @Override
+    public List<DishItemVO> getBySetmealWithDish(Long setmealId) {
+        List<SetmealDish> setmealDishList = setmealDishMapper.getBySetmealId(setmealId);
+        List<DishItemVO> dishItemVOList = setmealDishList.stream().map(setmealDish -> {
+            Long dishId = setmealDish.getDishId();
+            Dish dish = dishMapper.getById(dishId);
+            DishItemVO dishItemVO = DishItemVO.builder()
+                    .name(dish.getName())
+                    .image(dish.getImage())
+                    .copies(setmealDish.getCopies())
+                    .description(dish.getDescription())
+                    .build();
+            return dishItemVO;
+        }).collect(Collectors.toList());
+
+        return dishItemVOList;
     }
 }

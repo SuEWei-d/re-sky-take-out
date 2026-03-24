@@ -19,6 +19,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -171,5 +172,17 @@ public class DishServiceImpl implements DishService {
     public List<Dish> getByCategoryId(Long categoryId) {
         List<Dish> dishList = dishMapper.getByCategoryId(categoryId);
         return dishList;
+    }
+
+    /**
+     * 根据分类Id查找菜品返回DishVO
+     * @param categoryId
+     * @return
+     */
+    @Override
+    public List<DishVO> getByCId(Long categoryId) {
+        List<DishVO> dishVOList = dishMapper.getByCId(categoryId);
+
+        return dishVOList;
     }
 }

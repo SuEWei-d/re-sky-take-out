@@ -55,4 +55,11 @@ public interface DishMapper {
      * @return
      */
     List<Dish> getByCategoryId(Long categoryId);
+
+    /**
+     * 根据分类Id查找菜品返回DishVO
+     * @param categoryId
+     * @return
+     */
+    List<DishVO> getByCId(Long categoryId);
 }

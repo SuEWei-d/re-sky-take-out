@@ -46,6 +46,11 @@
 
     <!-- 根据类型查询分类列表 -->
     <select id="getByType" resultType="com.sky.entity.Category" parameterType="java.lang.Integer">
-        select * from category where type = #{type}
+        select * from category
+        <where>
+            <if test="type != null">
+                type = #{type}
+            </if>
+        </where>
     </select>
 </mapper>
